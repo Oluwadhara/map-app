@@ -26,6 +26,7 @@ export default function RootLayout() {
         <Stack.Screen name="MockDeliveryTracker" options={{ headerShown: false }} />
         <Stack.Screen name="LandmarkList" options={{ headerShown: false }} />
         <Stack.Screen name="GuideTracker" options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

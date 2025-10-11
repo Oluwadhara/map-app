@@ -11,6 +11,7 @@ export default function App() {
       <Link href="/StaticTourGuide">Go to StaticTourGuide screen</Link>
       <Link href="/MockDeliveryTracker">Go to MockDeliveryTracker screen</Link>
       <Link href="/LandmarkList">Go to LandmarkList screen</Link>
+      <Link href="/HomeScreen">Go to HomeScreen screen</Link>
       <StatusBar style="auto" />
     </View>
   );
