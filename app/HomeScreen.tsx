@@ -13,16 +13,16 @@ import {
 } from "react-native";
 import { Avatar, IconButton, Searchbar, useTheme } from "react-native-paper";
 import styled from "styled-components/native";
-import agungi from "../assets/images/agungi.jpg";
+import agungi from "../assets/images/agungi.jpeg";
 import elegushi from "../assets/images/elegushi_beach.jpg";
 import freedomPark from "../assets/images/freedom_park.jpg";
-import ilashe from "../assets/images/ilashe_beach.jpg";
-import kalakuta from "../assets/images/kalakuta_republic_museum.jpg";
-import lccImage from "../assets/images/lekki_conservation_centre.jpg";
+import ilashe from "../assets/images/ilashe_beach.jpeg";
+import kalakuta from "../assets/images/kalakuta_republic_museum.jpeg";
 import makoko from "../assets/images/makoko.jpg";
-import nikeArt from "../assets/images/nike_art_gallery.jpg";
-import oniruBeach from "../assets/images/oniru_beach.jpg";
-import tarkwaBay from "../assets/images/tarkwa_bay.jpg";
+import nikeArt from "../assets/images/nike_art_gallery.jpeg";
+import oniruBeach from "../assets/images/oniru_beach.jpeg";
+import tarkwaBay from "../assets/images/tarkwa_bay.jpeg";
+import lccImage from "../assets/images/unnamed.jpg";
 
 type Destination = {
     id: string;
