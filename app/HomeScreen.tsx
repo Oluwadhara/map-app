@@ -1,5 +1,6 @@
 // HomeScreen.tsx
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import React, { useMemo, useRef } from "react";
 import {
     Animated,
@@ -18,11 +19,12 @@ import elegushi from "../assets/images/elegushi_beach.jpg";
 import freedomPark from "../assets/images/freedom_park.jpg";
 import ilashe from "../assets/images/ilashe_beach.jpeg";
 import kalakuta from "../assets/images/kalakuta_republic_museum.jpeg";
+import lccImage from "../assets/images/Lekki_Convention_Center.jpg";
 import makoko from "../assets/images/makoko.jpg";
 import nikeArt from "../assets/images/nike_art_gallery.jpeg";
 import oniruBeach from "../assets/images/oniru_beach.jpeg";
 import tarkwaBay from "../assets/images/tarkwa_bay.jpeg";
-import lccImage from "../assets/images/unnamed.jpg";
+import userImage from "../assets/images/userimage.jpg";
 
 type Destination = {
     id: string;
@@ -281,6 +283,54 @@ const dummyDestinations: Destination[] = [
         description: "One of West Africa’s largest and busiest markets on Lagos Island. :contentReference[oaicite:9]{index=9}",
         rating: 4.0,
     },
+    {
+        id: "21",
+        name: "Murtala Muhammed International Airport (LOS)",
+        location: "Ikeja, Lagos",
+        latitude: 6.5774,
+        longitude: 3.3212,
+        image: lccImage, // replace with actual airport image later
+        category: "Airport",
+        description:
+            "Nigeria’s busiest airport and main international gateway, located in Ikeja.",
+        rating: 4.3,
+    },
+    {
+        id: "22",
+        name: "Murtala Muhammed Domestic Airport (MMA2)",
+        location: "Ikeja, Lagos",
+        latitude: 6.5779,
+        longitude: 3.3216,
+        image: lccImage,
+        category: "Airport",
+        description:
+            "The domestic terminal for local flights within Nigeria, adjacent to the international terminal.",
+        rating: 4.2,
+    },
+    {
+        id: "23",
+        name: "Lagos Air Force Base",
+        location: "Ikeja, Lagos",
+        latitude: 6.5825,
+        longitude: 3.3190,
+        image: lccImage,
+        category: "Military Base / Airport",
+        description:
+            "A restricted airbase located beside the Murtala Muhammed Airport complex.",
+        rating: 4.0,
+    },
+    {
+        id: "24",
+        name: "Lekki-Epe Airstrip",
+        location: "Lekki Peninsula, Lagos",
+        latitude: 6.4698,
+        longitude: 3.6020,
+        image: lccImage,
+        category: "Airstrip / Private",
+        description:
+            "A smaller private airstrip serving the Lekki Free Trade Zone and nearby developments.",
+        rating: 3.8,
+    },
 ];
 
 const dummyCategories: Category[] = [
@@ -294,7 +344,7 @@ const dummyCategories: Category[] = [
 const Root = styled.View`
   flex: 1;
   background-color: ${(props: any) => "#F7FAFF"};
-  padding-top: ${Platform.OS === "ios" ? "50px" : "30px"};
+  padding-top: ${Platform.OS === "ios" ? "70px" : "50px"};
 ` as any;
 
 const TopBar = styled.View`
@@ -464,13 +514,7 @@ const ProfileAvatar: React.FC<{ uri?: string }> = ({ uri }) => {
     return (
         <Avatar.Image
             size={44}
-            source={
-                uri
-                    ? { uri }
-                    : {
-                        uri: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80&auto=format&fit=crop",
-                    }
-            }
+            source={userImage}
             style={{ backgroundColor: "transparent" }}
         />
     );
@@ -484,6 +528,7 @@ export default function HomeScreen({
     navigation?: { navigate: (screen: string, params?: any) => void };
 }) {
     const theme = useTheme();
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = React.useState("");
     const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
 
@@ -494,13 +539,17 @@ export default function HomeScreen({
         return dummyDestinations.filter((d) => d.category === selectedCategory);
     }, [selectedCategory]);
 
-    const onPressDestination = (dest: Destination) => {
-        // placeholder navigation - replace with real navigation
-        navigation?.navigate?.("DestinationDetails", { id: dest.id });
+    const onPressDestination = (dest) => {
+        router.push({
+            pathname: "/MapScreen",
+            params: {
+                id: dest.id,
+            },
+        });
     };
 
     const onExploreNearby = () => {
-        navigation?.navigate?.("MapScreen");
+        router.push("/MapScreen");
     };
 
     const renderDestination = ({ item, index }: { item: Destination; index: number }) => {
@@ -525,7 +574,7 @@ export default function HomeScreen({
                 <DestinationCard onPress={() => onPressDestination(item)}>
                     <CardInner>
                         <Image
-                            source={{ uri: item.image }}
+                            source={item.image}
                             style={{ width: "100%", height: 160 }}
                             contentFit="cover"
                             transition={250}
@@ -556,7 +605,7 @@ export default function HomeScreen({
 
             <SearchContainer>
                 <Searchbar
-                    placeholder="Search attractions, e.g., museums, beaches..."
+                    placeholder="Search attractions, e.g., museums, parks"
                     onChangeText={(t) => setSearchQuery(t)}
                     value={searchQuery}
                     icon="magnify"
@@ -571,7 +620,11 @@ export default function HomeScreen({
             </SearchContainer>
 
             <SectionTitleRow>
-                <SectionTitle>Popular Destinations</SectionTitle>
+                <SectionTitle>
+                    {selectedCategory === "All"
+                        ? "Popular Destinations"
+                        : `Popular ${selectedCategory}`}
+                </SectionTitle>
                 <SeeAllText onPress={() => navigation?.navigate?.("Destinations")}>See All</SeeAllText>
             </SectionTitleRow>
 

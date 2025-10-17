@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export default {
   expo: {
@@ -48,7 +48,7 @@ export default {
       typedRoutes: true,
     },
     extra: {
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+      googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
     },
   },
 };
